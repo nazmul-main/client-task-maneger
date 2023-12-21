@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../assets/images/logo.png'
+import useAuth from "../Hook/useAuth";
 
 const navLink = <>
 
@@ -23,6 +24,7 @@ const navLink = <>
 
 </>
 const Navbar = () => {
+    const { user, signOutUser } = useAuth()
 
 
     return (
@@ -52,16 +54,24 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='navbar-end flex justify-center items-center'>
+                    {
+                        user?.email ?
+                            <div className="navbar-end  flex items-center ">
+                                <label className="swap swap-rotate md:mr-4">
+
+                                </label>
 
 
-                    <div className="navbar-end  flex items-center ">
-                        <label className="swap swap-rotate md:mr-4">
+                                <Link onClick={signOutUser} to='/signin' className="text-[12px] md:text-[18px] px-1 md:px-4 py-1 rounded-md bg-[#F47068] text-[#fff] font-bold ">Sign Out</Link>
+                            </div>
+                            :
+                            <div className="navbar-end  flex items-center ">
+                                <Link to='/signin' className="text-[12px] md:text-[18px] px-1 md:px-4 py-1 rounded-md bg-[#F47068] text-[#fff] font-bold ">Sign In</Link>
+                            </div>
 
-                        </label>
+                    }
 
 
-                        <Link to='/signin' className="text-[12px] md:text-[18px] px-1 md:px-4 py-1 rounded-md bg-[#F47068] text-[#fff] font-bold ">Sign In</Link>
-                    </div>
 
                 </div>
 

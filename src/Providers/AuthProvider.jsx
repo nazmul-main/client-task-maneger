@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { app } from "../Config/Firebase/firebase.config";
+const googleprovider = new GoogleAuthProvider();
+
 
 export const AuthContext = createContext(null)
 const auth = getAuth(app);
@@ -11,17 +13,21 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-
+    // google signin
+    const googleLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, googleprovider);
+    }
 
 
     // sign in user 
     const signinUser = (email, password) => {
-        loading(true);
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     // Create user
-    const createUser = (email, password) =>{
+    const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
@@ -33,25 +39,26 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    
+
     // user observe 
     useEffect(() => {
-        const unSubscribe =  onAuthStateChanged(auth, currrentUser => {
+        const unSubscribe = onAuthStateChanged(auth, currrentUser => {
             setUser(currrentUser)
             console.log('current user:', currrentUser);
             setLoading(false);
         })
-        return() => {
+        return () => {
             return unSubscribe
         }
     }, []);
 
     const autInfo = {
+        googleLogin,
         user,
-        loading,
         createUser,
         signinUser,
         signOutUser,
+        loading,
     }
 
 

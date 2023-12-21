@@ -1,9 +1,58 @@
-import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from '../assets/images/banner-3.png'
 import SocialLogin from "./SocialLogin";
+import Swal from 'sweetalert2'
+
+
+import useAuth from "../Hook/useAuth";
 
 
 const SiginIn = () => {
+
+    const location = useLocation()
+    const navigate = useNavigate()
+    const { signinUser } = useAuth()
+
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        const form = e.target;
+        const email = form.email.value
+        const password = form.password.value
+        console.log(email, password);
+
+        signinUser(email, password)
+            .then(res => {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Signin Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                navigate(location?.state ? location.state : '/')
+                window.location.reload();
+
+
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "eamil or password was wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                  });
+
+            });
+
+
+    }
+
+
+
+
+
     return (
         <div className="">
             <section className="relative">
@@ -18,7 +67,7 @@ const SiginIn = () => {
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                                 Sign in to your account
                             </h1>
-                            <form className="space-y-4 md:space-y-6" action="#">
+                            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
                                     <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Your Email" required />
@@ -38,14 +87,14 @@ const SiginIn = () => {
                                     </div>
 
                                 </div>
-                                <button type="submit" className="w-full bg-[#F47068] text-[#fff] hover:bg-[#d2514a] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
+                                <button type="submit" className="w-full bg-[#F47068] text-[#fff] hover:bg-[#d2514a]  focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                                 <p className="text-sm  text-gray-500 ">
                                     Don’t have an account yet? <Link to='/signup' className="font-medium text-primary-600 hover:underline "><span className="text-[#F47068] font-bold">Sign up</span></Link>
                                 </p>
                             </form>
                             <SocialLogin></SocialLogin>
                         </div>
-                       
+
                     </div>
                 </div>
             </section>

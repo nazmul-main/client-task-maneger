@@ -1,7 +1,54 @@
 import { Link } from "react-router-dom";
 import login from '../assets/images/banner-3.png'
 import SocialLogin from "./SocialLogin";
+import useAuth from "../Hook/useAuth";
+import toast from "react-hot-toast";
+
 const SignUp = () => {
+
+    const {createUser} = useAuth()
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        const form = e.target;
+        const name = form.name.value
+        const email = form.email.value
+        const photo = form.photo.value
+        const password = form.password.value
+        console.log(name, email, photo, password);
+
+         /* password validation */
+         if (password.length < 6) {
+            toast.error('is less than 6 characters');
+            return;
+        }
+
+        if (!/[A-Z]/.test(password)) {
+            toast.error("don't have a capital letter");
+            return;
+        }
+
+        if (!/[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password)) {
+            toast.error("don't have a special character");
+            return;
+        }
+
+        /* creatting  user */
+        createUser(email, password)
+            .then(res => {
+                console.log(res);
+                window.location.reload();
+                toast.success('Sign Up successfully');
+
+                
+            })
+            .then(err => console.log(err))
+    }
+
+
+
+
+
     return (
         <div>
             <section className="relative">
@@ -17,7 +64,7 @@ const SignUp = () => {
                                 Create an Acount
                             </h1>
                            
-                            <form className="space-y-4 md:space-y-6" action="#">
+                            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Your Name</label>
                                     <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Your Email" required />
@@ -25,6 +72,10 @@ const SignUp = () => {
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
                                     <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Your Email" required />
+                                </div>
+                                <div>
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 ">Your Photo URL</label>
+                                    <input type="text" name="photo" id="photo" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Your Email" required />
                                 </div>
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Password</label>
