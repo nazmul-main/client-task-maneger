@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import login from '../assets/images/banner-3.png'
 import SocialLogin from "./SocialLogin";
@@ -7,7 +8,7 @@ import Swal from "sweetalert2";
 const SignUp = () => {
 
     const navigate = useNavigate()
-    const {createUser} = useAuth()
+    const {createUser, updateUserProfile} = useAuth()
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -34,17 +35,27 @@ const SignUp = () => {
             return;
         }
 
-        /* creatting  user */
+          /* creating user */
         createUser(email, password)
-            .then(res => {
-                console.log(res);
-                Swal.fire("User Created Successfully");
-                navigate('/')
+        .then(res => {
+            updateUserProfile(name, photo)
+                .then(() => {
 
-                
-            })
-            .then(err => console.log(err))
-    }
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "User created successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate(location?.state ? location.state : '/')
+                    window.location.reload();
+                })
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 
 
 
