@@ -4,6 +4,8 @@ import MainLayout from '../Layout/MainLayout';
 import Home from '../Pages/Home';
 import SiginIn from '../Pages/SiginIn';
 import SignUp from '../Pages/SignUp';
+import Dashboard from '../Layout/Dashboard';
+import PrivateRoute from '../Private/PrivateRoute';
 
 const Router = createBrowserRouter([
     {
@@ -17,6 +19,16 @@ const Router = createBrowserRouter([
 
         ]
     },
+
+    // Dashboard
+    {
+        path: '/dashboard',
+        element:<PrivateRoute> <Dashboard></Dashboard></PrivateRoute>
+       
+    },
+
+
+
     {
         path: '/signin',
         element: <SiginIn></SiginIn>

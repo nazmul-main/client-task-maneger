@@ -2,30 +2,34 @@ import { Link, NavLink } from "react-router-dom";
 import logo from '../assets/images/logo.png'
 import useAuth from "../Hook/useAuth";
 
-const navLink = <>
 
-
-    <li><NavLink to="/" className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Home</NavLink>
-    </li>
-    <li><NavLink to="/addprocudct" className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Add Procuct</NavLink>
-    </li>
-    <li><NavLink to="/mycart" className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> My Cart</NavLink>
-    </li>
-    <li><NavLink to="/allphones" className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "text-[#F47068] font-semibold underline" : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> All Phones </NavLink>
-    </li>
-    <li><NavLink to="/about" className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> About </NavLink>
-    </li>
-
-
-</>
 const Navbar = () => {
     const { user, signOutUser } = useAuth()
+    const navLink = <>
 
+
+        <li><NavLink to="/" className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Home</NavLink>
+        </li>
+        <li><NavLink to="/addprocudct" className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Calender</NavLink>
+        </li>
+        {
+            user?.email ?
+                <li><NavLink to="/dashboard" className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Dashboard </NavLink>
+                </li>
+                : null
+        }
+        <li><NavLink to="/mycart" className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> About</NavLink>
+        </li>
+
+
+
+
+
+    </>
 
     return (
         <div>
@@ -57,17 +61,44 @@ const Navbar = () => {
                     {
                         user?.email ?
                             <div className="navbar-end  flex items-center ">
+                                <div className="dropdown dropdown-end ">
+
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+
+                                        <div className="w-7 md:w-12 rounded-full md:mr-4">
+
+                                            <img src={user.photoURL ? user.photoURL : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhyhj1gUUYu1c8817GfPwApJbYzW9lJdjSXQ&usqp=CAU"} alt={user.displayName} />
+                                        </div>
+
+                                    </label>
+                                    <ul tabIndex={0} className=":  dropdown-content mt-3 z-[1] p-2 shadow bg-[#ed918594] rounded-b-full rounded-l-full py-2 px-4">
+                                        <li>
+                                            <h3 className=" font-semibold "> {user.displayName
+                                            }</h3>
+
+                                        </li>
+                                        <li>
+                                            <h3 className="font-semibold  ">{user.email
+                                            }</h3>
+
+                                        </li>
+                                    </ul>
+
+                                </div>
                                 <label className="swap swap-rotate md:mr-4">
 
                                 </label>
 
 
                                 <Link onClick={signOutUser} to='/signin' className="text-[12px] md:text-[18px] px-1 md:px-4 py-1 rounded-md bg-[#F47068] text-[#fff] font-bold ">Sign Out</Link>
+
                             </div>
+
                             :
                             <div className="navbar-end  flex items-center ">
                                 <Link to='/signin' className="text-[12px] md:text-[18px] px-1 md:px-4 py-1 rounded-md bg-[#F47068] text-[#fff] font-bold ">Sign In</Link>
                             </div>
+
 
                     }
 

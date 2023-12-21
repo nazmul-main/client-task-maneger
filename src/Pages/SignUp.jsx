@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from '../assets/images/banner-3.png'
 import SocialLogin from "./SocialLogin";
 import useAuth from "../Hook/useAuth";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
 
+    const navigate = useNavigate()
     const {createUser} = useAuth()
 
     const handleSubmit = e => {
@@ -19,17 +20,17 @@ const SignUp = () => {
 
          /* password validation */
          if (password.length < 6) {
-            toast.error('is less than 6 characters');
+            Swal.fire(" password is less than 6 characters");
             return;
         }
 
         if (!/[A-Z]/.test(password)) {
-            toast.error("don't have a capital letter");
+            Swal.fire("don't have a capital letter");
             return;
         }
 
         if (!/[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password)) {
-            toast.error("don't have a special character");
+            Swal.fire("don't have a special character");
             return;
         }
 
@@ -37,8 +38,8 @@ const SignUp = () => {
         createUser(email, password)
             .then(res => {
                 console.log(res);
-                window.location.reload();
-                toast.success('Sign Up successfully');
+                Swal.fire("User Created Successfully");
+                navigate('/')
 
                 
             })
