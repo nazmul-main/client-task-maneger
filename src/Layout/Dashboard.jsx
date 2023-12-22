@@ -34,8 +34,8 @@ const Dashboard = () => {
                                 isPending
                                     ? "pending"
                                     : isActive
-                                        ? "text-[#FF735C] font-semibold  items-center bg-[#efb7ae] "
-                                        : "hover:text-[#120a09]  font-semibold text-[#2C3659]"
+                                        ? "text-[#FF735C] font-semibold  items-center bg-[#efb7ae]"
+                                        : "hover:text-[#120a09] font-semibold text-[#2C3659]"
                             }
                         >
                             <span className={`text-[20px] block float-left  md:mr-2 mt-[1px] ${!open && "py-4 mt-2"}`}>

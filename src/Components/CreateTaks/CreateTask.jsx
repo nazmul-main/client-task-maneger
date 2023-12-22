@@ -1,7 +1,15 @@
 import { useForm } from "react-hook-form";
 import addtask from "../../assets/images/add-task.jpg"
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
+
 
 const CreateTask = () => {
+    const axiospublick = useAxiosPublic()
+    const {user} = useAuth()
+    const userEmail = user.email
+    console.log(userEmail);
 
     const status = 'todo';
 
@@ -15,10 +23,31 @@ const CreateTask = () => {
         
         const postData = {
             ...data,
-            status
+            status,
+            userEmail
 
         }
         console.log(postData);
+
+         // Send to Backend
+         axiospublick.post('/task', postData)
+         .then(res => {
+            console.log(res);
+             if (res?.data?.insertedId) {
+                 reset();
+                 Swal.fire({
+                     icon: 'success',
+                     title: 'Well done',
+                     text: 'Task added  successfully',
+                     footer: '<a href="">Thank you</a>'
+                 });
+
+             }
+         })
+         .catch(error => {
+             console.log(error);
+         });
+        
     }
 
 

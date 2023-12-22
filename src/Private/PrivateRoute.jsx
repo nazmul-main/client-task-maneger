@@ -8,7 +8,7 @@ const PrivateRoute = ({children}) => {
     const { user,loading } = useAuth();
     const location = useLocation();
     
-    console.log(location.pathname);
+    // console.log(location.pathname);
 
     if (loading) {
         return <h2 className=" text-center text-2xl fonr-bold">Loading...</h2>
