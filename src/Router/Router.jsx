@@ -9,6 +9,7 @@ import PrivateRoute from '../Private/PrivateRoute';
 import CreateTask from '../Components/CreateTaks/CreateTask';
 import DashboardHome from '../Components/DashboardHome/DashboardHome';
 import UpdateToDo from '../Components/ToDoTaks/UpdateToDo';
+import About from '../Pages/About/About';
 
 const Router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const Router = createBrowserRouter([
             {
                 path: '/',
                 element:<Home></Home>
+            },
+            {
+                path: '/about',
+                element:<About></About>
             }
 
         ]
