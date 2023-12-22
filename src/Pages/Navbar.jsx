@@ -11,9 +11,7 @@ const Navbar = () => {
         <li><NavLink to="/" className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Home</NavLink>
         </li>
-        <li><NavLink to="/addprocudct" className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-[#F47068] font-semibold " : "hover:text-[#F47068] font-semibold text-[#2C3659]"}> Calender</NavLink>
-        </li>
+        
         {
             user?.email ?
                 <li><NavLink to="/dashboard" className={({ isActive, isPending }) =>
