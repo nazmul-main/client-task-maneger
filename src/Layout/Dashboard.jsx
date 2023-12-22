@@ -29,7 +29,7 @@ const Dashboard = () => {
                 <ul className="pt-2">
                     <li className="{`text-gray-400 text-sm py-4 mt-2 cursor-pointer hover:bg-[#f39e8b]  p-2 hover:bg-light-white rounded-md  `}">
                         <NavLink
-                            to="/dashboard"
+                            to="/"
                             className={({ isActive, isPending }) =>
                                 isPending
                                     ? "pending"
@@ -40,6 +40,26 @@ const Dashboard = () => {
                         >
                             <span className={`text-[20px] block float-left  md:mr-2 mt-[1px] ${!open && "py-4 mt-2"}`}>
                                 <FaHome />
+                            </span>
+                            <span className={`text-[20px] font-medium flex-1 duration-200 ${!open && "hidden"}`}>
+                                <h1>Home</h1>
+                            </span>
+                        </NavLink>
+
+                    </li>
+                    <li className="{`text-gray-400 text-sm py-4 mt-2 cursor-pointer hover:bg-[#f39e8b]  p-2 hover:bg-light-white rounded-md  `}">
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? "pending"
+                                    : isActive
+                                        ? "text-[#FF735C] font-semibold  items-center bg-[#efb7ae]"
+                                        : "hover:text-[#120a09] font-semibold text-[#2C3659]"
+                            }
+                        >
+                            <span className={`text-[20px] block float-left  md:mr-2 mt-[1px] ${!open && "py-4 mt-2"}`}>
+                                <FaClipboardList />
                             </span>
                             <span className={`text-[20px] font-medium flex-1 duration-200 ${!open && "hidden"}`}>
                                 <h1>Dashboard</h1>

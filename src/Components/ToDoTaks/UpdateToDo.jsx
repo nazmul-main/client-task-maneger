@@ -32,7 +32,7 @@ const UpdateToDo = ({ isOpen, closeModal, todo, refetch }) => {
         };
 
 
-        fetch(`http://localhost:3000/task_update/${_id}`, {
+        fetch(`https://server-task-manegemnt.vercel.app/task_update/${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
