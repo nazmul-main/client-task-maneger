@@ -29,12 +29,12 @@ const Dashboard = () => {
                 <ul className="pt-2">
                     <li className="{`text-gray-400 text-sm py-4 mt-2 cursor-pointer hover:bg-[#f39e8b]  p-2 hover:bg-light-white rounded-md  `}">
                         <NavLink
-                            to="/"
+                            to="/dashboard"
                             className={({ isActive, isPending }) =>
                                 isPending
                                     ? "pending"
                                     : isActive
-                                        ? "text-[##FF735C] font-semibold  items-center bg-[#efb7ae] border-r-4 border-white"
+                                        ? "text-[#FF735C] font-semibold  items-center bg-[#efb7ae] "
                                         : "hover:text-[#120a09]  font-semibold text-[#2C3659]"
                             }
                         >
@@ -42,7 +42,7 @@ const Dashboard = () => {
                                 <FaHome />
                             </span>
                             <span className={`text-[20px] font-medium flex-1 duration-200 ${!open && "hidden"}`}>
-                                <h1>Home</h1>
+                                <h1>Dashboard</h1>
                             </span>
                         </NavLink>
 
