@@ -6,6 +6,8 @@ import useAuth from "../../Hook/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import UpdateToDo from "./UpdateToDo";
 
 const ToDoTaks = () => {
 
@@ -14,9 +16,19 @@ const ToDoTaks = () => {
     const currenetUser = user?.email
     console.log(currenetUser);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
-    const { data: todoTask = [], isLoading , refetch} = useQuery({
+
+    const { data: todoTask = [], isLoading, refetch } = useQuery({
         queryKey: ['todoTask'],
         queryFn: async () => {
             const res = await axiospublick(`/todo_task_filter?email=${currenetUser}`)
@@ -101,13 +113,15 @@ const ToDoTaks = () => {
                                 </p>
                             </div>
                             <div>
-                                <button className=" text-center" >
+                                <button onClick={openModal} className=" text-center" >
                                     <FaEdit className="text-green-600 text-2xl  font-semibold mr-8" />
+
                                 </button>
                                 <button onClick={() => handleDelete(todo?._id)}>
                                     <MdDelete className="text-red-600 text-2xl  font-semibold" />
                                 </button>
                             </div>
+                            <UpdateToDo todo={todo} isOpen={isModalOpen} closeModal={closeModal} refetch={refetch}></UpdateToDo>
                         </div>
                     ))
                 }
